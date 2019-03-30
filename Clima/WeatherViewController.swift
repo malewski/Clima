@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import Alamofire
 
 class WeatherViewController: UIViewController, CLLocationManagerDelegate {
     
@@ -38,13 +39,20 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
         
     }
     
-    
-    
     //MARK: - Networking
     /***************************************************************/
     
     //Write the getWeatherData method here:
-    
+    func getWeatherData(url: String, parameters: [String : String]){
+        Alamofire.request(url, method: .get, parameters: parameters).responseData {
+            response in
+            if response.result.isSuccess {
+                self.updateWeatherDate(data: response.result.value!)
+            } else {
+                self.cityLabel.text = "Connection Issues"
+            }
+        }
+    }
 
     
     
@@ -56,7 +64,9 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
    
     
     //Write the updateWeatherData method here:
-    
+    func updateWeatherDate(data : Data) {
+        
+    }
 
     
     
@@ -79,12 +89,20 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
     //Write the didUpdateLocations method here:
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location = locations.last!
+
+        if location.horizontalAccuracy > 0 {
+            locationManager.stopUpdatingLocation()
+            locationManager.delegate = nil
+            
+            let params : [String : String] = ["lat" : String(location.coordinate.latitude), "lon" : String(location.coordinate.longitude), "appid" : APP_ID]
+            getWeatherData(url: WEATHER_URL, parameters: params)
+        }
     }
     
     
     //Write the didFailWithError method here:
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("Location error: \(error)")
+        cityLabel.text = "Location Unavailable"
     }
     
     
