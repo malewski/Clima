@@ -64,6 +64,7 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
         do {
             let decoder = JSONDecoder()
             let decoded = try decoder.decode(WeatherDataModel.self, from: data)
+            updateUI(data: decoded)
             dump(decoded)
         } catch {
             print("Failed to decode")
@@ -76,10 +77,12 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
     
     //Write the updateUIWithWeatherData method here:
     
-    
-    
-    
-    
+    func updateUI(data: WeatherDataModel) {
+        cityLabel.text = data.cityName
+        let temp : Int = Int(round(data.temperature - 273.16))
+        temperatureLabel.text = String(temp)
+        weatherIcon.image = UIImage(named: data.weatherIcon)
+    }
     
     //MARK: - Location Manager Delegate Methods
     /***************************************************************/

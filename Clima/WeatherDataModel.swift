@@ -36,7 +36,7 @@ final class WeatherDataModel: Decodable {
     }
     //This method turns a condition code into the name of the weather condition image
     
-    func updateWeatherIcon(condition: Int) -> String {
+    private func updateWeatherIcon(condition: Int) -> String {
         
     switch (condition) {
     
