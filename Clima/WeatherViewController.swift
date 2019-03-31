@@ -21,6 +21,7 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
     var finalUrl : String = ""
     var lat : Double = 0.0
     var lon : Double = 0.0
+//    var weatherData = WeatherDataModel()
     
     
     //Pre-linked IBOutlets
@@ -54,23 +55,21 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
 
-    
-    
-    
-    
-    
     //MARK: - JSON Parsing
     /***************************************************************/
    
     
     //Write the updateWeatherData method here:
     func updateWeatherDate(data : Data) {
-        
+        do {
+            let decoder = JSONDecoder()
+            let decoded = try decoder.decode(WeatherDataModel.self, from: data)
+            dump(decoded)
+        } catch {
+            print("Failed to decode")
+        }
     }
 
-    
-    
-    
     //MARK: - UI Updates
     /***************************************************************/
     
