@@ -158,7 +158,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 1000;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = "London App Brewery";
 				TargetAttributes = {
 					63E28ACA1B99C32400FBF6E0 = {
@@ -170,7 +170,7 @@
 			};
 			buildConfigurationList = 63E28AC61B99C32400FBF6E0 /* Build configuration list for PBXProject "Clima" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
